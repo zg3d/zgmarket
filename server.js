@@ -51,13 +51,13 @@ app.use(fileUpload());
     saveUninitialized: true
 })) */
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
 
-    res.locals.user = req.session.userInfo;
+//     res.locals.user = req.session.userInfo;
 
-    next();
-})
+//     next();
+// })
 //MAPs EXPRESS TO ALL OUR  ROUTER OBJECTS
 
 
