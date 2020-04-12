@@ -45,11 +45,11 @@ app.use((req, res, next) => {
 
 app.use(fileUpload());
 
-app.use(session({
+/* app.use(session({
     secret: `${process.env.SECRET_KEY}`,
     resave: false,
     saveUninitialized: true
-}))
+})) */
 
 app.use((req, res, next) => {
 
