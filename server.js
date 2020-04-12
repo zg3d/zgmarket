@@ -75,6 +75,6 @@ app.get("/", (req, res) => {
 
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 //Makes the app listen to port 3000
 app.listen(PORT, () => console.log(`Server Connected`));
