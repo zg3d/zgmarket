@@ -1,0 +1,28 @@
+{
+  "name": "zgmarket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx tailwindcss build public/css/tailwind.css -o  public/css/style.css && node server",
+    "preinstall": "npx npm-force-resolutions"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "express-handlebars": "^4.0.0",
+    "express-session": "^1.17.0",
+    "mongoose": "^5.9.7",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "resolutions": {
+      "minimist": "^1.2.5"
+    },
+    "tailwindcss": "^1.2.0"
+  }
+}
