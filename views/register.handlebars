@@ -1,80 +1,140 @@
+<div class="modal   w-full h-full top-0 left-0 flex items-center justify-center fixed z-50">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-100"></div>
 
-<div class="container mx-auto md:pt-0 md:items-center">
-    <div class="flex justify-center px-6 my-12">
-        <!-- Row -->
-        <div class="w-full xl:w-3/4 lg:w-11/12 flex">
-            <!-- Col -->
-            <a class="blockw-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
-                style="background-image: url(../image/login.jpg)" href="/"></a>
-            <!-- Col -->
-            <div class="w-full lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
-                <h3 class="pt-4 text-2xl text-gray-700 text-center">Create an Account!</h3>
-                <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded">
-                    <div class="mb-4 md:flex md:justify-between">
-                        <div class="mb-4 md:mr-2 md:mb-0">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="firstName">
-                                First Name
-                            </label>
-                            <input
-                                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                id="firstName" type="text" name="fname" placeholder="First Name" />
-                        </div>
-                        <div class="md:ml-2">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="lastName">
-                                Last Name
-                            </label>
-                            <input
-                                class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                id="lastName" type="text" name="lname" placeholder="Last Name" />
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
-                            Email
-                        </label>
-                        <input
-                            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                            id="email" type="email" name="email" placeholder="Email" />
-                    </div>
-                    <div class="mb-4 md:flex md:justify-between">
-                        <div class="mb-4 md:mr-2 md:mb-0">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
-                                Password
-                            </label>
-                            <input
-                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                id="password" type="password" name="password" placeholder="******************" />
-                            <p class="text-xs italic text-red-500">Please choose a password.</p>
-                        </div>
-                        <div class="md:ml-2">
-                            <label class="block mb-2 text-sm font-bold text-gray-700" for="c_password">
-                                Confirm Password
-                            </label>
-                            <input
-                                class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-                                id="c_password" type="password" name="password2" placeholder="******************" />
-                        </div>
-                    </div>
-                    <div class="mb-6 text-center">
-                        <button
-                            class="w-full px-4 py-2 font-bold text-white bg-purple-900 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
-                            type="button">
-                            Register Account
-                        </button>
-                    </div>
-                    <hr class="mb-6 border-t" />
-                {{!--     <div class="text-center">
+    <div
+        class="modal-container bg-transparent container mx-auto md:pt-0 md:items-center rounded shadow-lg z-50 overflow-y-auto">
+
+
+        <div class=" modal-content ">
+            <div>
+
+                <div class="flex justify-center ">
+                    <!-- Row -->
+                    <div class="w-full xl:w-3/4 lg:w-11/12 flex ">
+                        <!-- Col -->
+                        <a class="block w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
+                            style="background-image: url(../image/login.jpg)" href="/"></a>
+                        <!-- Col -->
+                        <div class="w-full xs:w-3/6 lg:w-7/12 bg-white p-5 rounded-lg lg:rounded-l-none">
+                            <a href="/">
+                                <div id="close"
+                                    class="modal-close cursor-pointer flex flex-col items-end text-purple-900 text-sm z-50">
+                                    <svg class="hover:text-red-500" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20" width=25 height=25>
+                                        <path
+                                            d="M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z" />
+                                    </svg>
+
+                                </div>
+                            </a>
+                            <h3 class="pt-4 text-2xl text-purple-900 text-center">Create an Account!</h3>
+                            <form class="px-8 pt-6 pb-8 mb-4 bg-white rounded" method="POST" action="/account/sign-up">
+                                <div class="errors text-red-900 mb-4">
+                                    <label class="errors">{{errors.firstName}}</label>
+
+                                </div>
+                                <div class="errors text-red-900 mb-4">
+
+                                    <label class="errors">{{errors.lastName}}</label>
+                                </div>
+                                <div class="mb-4 md:flex md:justify-between">
+                                    <div class="mb-4 md:mr-2 md:mb-0">
+                                        <label class="block mb-2 text-sm font-bold text-purple-900" for="firstName">
+                                            First Name
+                                        </label>
+                                        <input
+                                            class="w-full px-3 py-2 text-sm leading-tight text-black border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="firstName" type="text" name="firstName" value="{{user.firstName}}"
+                                            placeholder="First Name" style="border-color:{{color.firstName}}" />
+
+                                    </div>
+                                    <div class="md:ml-2">
+                                        <label class="block mb-2 text-sm font-bold text-purple-900" for="lastName">
+                                            Last Name
+                                        </label>
+                                        <input
+                                            class="w-full px-3 py-2 text-sm leading-tight text-black border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="lastName" type="text" name="lastName" value="{{user.lastName}}"
+                                            placeholder="Last Name" style="border-color:{{color.lastName}}" />
+
+                                    </div>
+                                </div>
+                                {{#each errors.email }}
+                                <div class="errors text-red-900 mb-4">
+                                    <label class="errors">{{this}}</label>
+                                </div>
+                                {{/each}}
+                                <div class="mb-4">
+                                    <label class="block mb-2 text-sm font-bold text-purple-900" for="email">
+                                        Email
+                                    </label>
+                                    <input
+                                        class="w-full px-3 py-2 mb-3 text-sm leading-tight text-black border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                        id="email" type="email" name="email" value="{{user.email}}" placeholder="Email"
+                                        style="border-color:{{color.email}}" />
+
+                                </div>
+                                {{#each errors.password }}
+                                <div class="errors text-red-900 mb-4">
+                                    <label class="errors">{{this}}</label>
+                                </div>
+                                {{/each}}
+                                <div class="errors text-red-900 mb-4">
+                                    <label class="errors">{{errors.match}}</label>
+                                </div>
+                                <div class="mb-4 md:flex md:justify-between">
+                                    <div class="mb-4 md:mr-2 md:mb-0">
+                                        <label class="block mb-2 text-sm font-bold text-purple-900" for="password">
+                                            Password
+                                        </label>
+                                        <input
+                                            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-black border  rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="password" type="password" name="password"
+                                            placeholder="******************" style="border-color:{{color.password}}" />
+
+
+                                    </div>
+                                    <div class="md:ml-2">
+                                        <label class="block mb-2 text-sm font-bold text-purple-900" for="c_password">
+                                            Confirm Password
+                                        </label>
+                                        <input
+                                            class="w-full px-3 py-2 mb-3 text-sm leading-tight text-black border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                            id="c_password" type="password" name="password2"
+                                            placeholder="******************" style="border-color:{{color.password2}}" />
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="mb-6 text-center">
+                                    <button
+                                        class="w-full px-4 py-2 font-bold text-white bg-purple-900 rounded-full hover:bg-purple-700 focus:outline-none focus:shadow-outline"
+                                        type="submit">
+                                        Register Account
+                                    </button>
+                                </div>
+                                <hr class="mb-6 border-t" />
+                                {{!--     <div class="text-center">
                         <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800" href="#">
                             Forgot Password?
                         </a>
                     </div> --}}
-                    <div class="text-center">
-                        <a class="inline-block text-sm text-blue-500 align-baseline hover:text-blue-800"
-                            href="/login">
-                            Already have an account? Login!
-                        </a>
+                                <div class="text-center">
+                                    <a class="inline-block text-sm text-purple-500 align-baseline hover:text-purple-800"
+                                        href="/account/login">
+                                        Already have an account? Login!
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </form>
+                </div>
+
+
+
+
             </div>
         </div>
     </div>

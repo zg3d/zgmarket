@@ -1,17 +1,17 @@
 require('dotenv').config();
 const express = require("express");
+const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
 //import your router objects
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const accountRoutes = require("./routers/Account");
-//const employeeRoutes = require("./routers/Employee");
-//const productsRoutes = require("./routers/Shop");
+const employeeRoutes = require("./routers/Clerk");
+const productsRoutes = require("./routers/Shop");
 //const userRoutes = require("./routers/User")
-
-
 
 const app = express();
 
@@ -23,7 +23,9 @@ app.use(express.static("public"));
 
 
 //Handlebars middlware
-app.engine("handlebars", exphbs());
+app.engine("handlebars", exphbs({
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+}));
 app.set("view engine", "handlebars");
 
 /*
@@ -62,9 +64,9 @@ app.use(fileUpload());
 
 
 //app.use("/",userRoutes);
-app.use("/account",accountRoutes);
-//app.use("/employee",employeeRoutes);
-//app.use("/shop",productsRoutes);
+app.use("/account", accountRoutes);
+app.use("/clerk",employeeRoutes);
+app.use("/shop",productsRoutes);
 
 app.get("/", (req, res) => {
 
@@ -76,5 +78,21 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 8080;
+
+const connect = async () => {
+    try {
+        await mongoose.connect(process.env.URI, {
+            keepAlive: 1,
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        mongoose.set('useFindAndModify', false);
+    } catch (err) {
+        console.log(err + "connect");
+    }
+};
+connect();
+
+
 //Makes the app listen to port 3000
 app.listen(PORT, () => console.log(`Server Connected`));

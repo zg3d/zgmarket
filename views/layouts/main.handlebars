@@ -7,17 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  
+    <script
+		src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v1.9.8/dist/alpine.js"
+		defer
+	></script>
     <link href="image/favicon.png" type="image/ico" rel="icon">
      <title>{{ title }}</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body  class=" w-full h-screen bg-purple-900 text-purple-200 work-sans leading-normal text-base tracking-normal" style="font-family: 'Zilla Slab', serif;">
+<body  class="bg-white font-sans leading-normal tracking-normal" style="font-family: 'Zilla Slab', serif;">
 
  
-   
-   
-        {{{body}}}
+{{> header}}
+	
+
+
+	<!--Container-->
+	<div class="container shadow-lg mx-auto bg-white ">
+		{{{body}}}
+	
+		
+	</div>
+
+
+</body>
+</html>
  
     
 
