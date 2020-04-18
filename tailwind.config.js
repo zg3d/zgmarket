@@ -3,5 +3,5 @@ module.exports = {
     extend: {},
   },
   variants: {},
-  plugins: [require('tailwindcss-tables')()],
+  plugins: [],
 }

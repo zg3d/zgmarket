@@ -11,7 +11,7 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 const accountRoutes = require("./routers/Account");
 const employeeRoutes = require("./routers/Clerk");
 const productsRoutes = require("./routers/Shop");
-//const userRoutes = require("./routers/User")
+const userRoutes = require("./routers/User")
 
 const app = express();
 
@@ -47,23 +47,24 @@ app.use((req, res, next) => {
 
 app.use(fileUpload());
 
-/* app.use(session({
+app.use(session({
     secret: `${process.env.SECRET_KEY}`,
     resave: false,
     saveUninitialized: true
-})) */
+}))
 
-// app.use((req, res, next) => {
+app.use((req, res, next) => {
 
 
-//     res.locals.user = req.session.userInfo;
+     res.locals.user = req.session.userInfo;
 
-//     next();
-// })
+     next();
+})
+
 //MAPs EXPRESS TO ALL OUR  ROUTER OBJECTS
 
 
-//app.use("/",userRoutes);
+app.use("/",userRoutes);
 app.use("/account", accountRoutes);
 app.use("/clerk",employeeRoutes);
 app.use("/shop",productsRoutes);

@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router();
 const User = require("../models/Users");
-
+const isLoggedIn = require("../middleware/auth");
+const admin= require("../middleware/author");
 const path = require('path');
 
 
@@ -23,50 +24,51 @@ router.get("/login", (req, res) => {
 });
 router.post("/login", async (req, res) => {
 
-         const errors=[];
-                try {
-                   const user = await User.findOne({ Email: req.body.email });
-                   
-                    if (user == null) {
-                        errors.push("Sorry, your email and/or password incorrect");
-                        res.render("login", {
-                            errors
-                        })
+    const errors = [];
+    try {
+        const user = await User.findOne({ Email: req.body.email });
+
+        if (user == null) {
+            errors.push("Sorry, your email and/or password incorrect");
+            res.render("login", {
+                errors
+            })
+
+        }
+    
+
+        const match = await new Promise((resolve, reject) => {
+            bcrypt.compare(req.body.password, user.Password, function (err, result) {
+                // result == true
+                if (err) reject(err);
+                resolve(result);
+            });
+        });
+      
+
+        // result == true
+        if (match) {
+            console.log("success")
+            req.session.userInfo = user;
+            res.redirect("/");
+        }
+
+        else {
+            errors.push("Sorry, your email and/or password incorrect ");
+            res.render("login", {
+                errors
+            })
+        }
         
-                    }
-                    console.log(user.Password)
-        
-                    const match = await new Promise((resolve, reject) => {
-                        bcrypt.compare(req.body.password, user.Password, function(err, result) {
-                        // result == true
-                        if (err) reject(err);
-                        resolve(result);
-                    });
-                });
-                    console.log(match)
-
-                    // result == true
-                    if (match) {
-                        console.log("success")
-
-                        res.redirect("/");
-                    }
-
-                    else {
-                        errors.push("Sorry, your email and/or password incorrect ");
-                        res.render("login", {
-                            errors
-                        })
-                    }
-                }
-                catch (err) {
-                        console.log(err);
-                }
+    }
+    catch (err) {
+        console.log(err);
+    }
 
 
 
 
-            
+
 
 
 
@@ -104,14 +106,16 @@ router.post("/sign-up", async (req, res) => {
         colors.email = 'red';
     }
     try {
-        await Users.findOne({ Email: newUser.email.toLowerCase() }, function (err, user) {
-            if (user.Email == newUser.email.toLowerCase()) {
-                errors.email.push("You already have an account");
-                colors.email = 'red';
-            }
-        });
+        
+        const user = await User.findOne({Email:(newUser.email.toLowerCase())});
+        
+
+        if (user.Email === newUser.email.toLowerCase()) {
+            errors.email.push("You already have an account");
+            colors.email = 'red';
+        }
     } catch (err) {
-        console.log("error finidng email");
+        console.log(err);
     }
 
     if (errors.email.length == 0) {
@@ -177,6 +181,9 @@ router.post("/sign-up", async (req, res) => {
 
 });
 
-
+router.get("/logout", (req,res)=>{
+    req.session.destroy();
+    res.redirect("/account/login");
+})
 
 module.exports = router;

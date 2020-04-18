@@ -6,10 +6,6 @@ const router = express.Router();
 
 router.use(express.static("public"));
 
-router.get("/dashboard",(req,res)=>{
-    res.render("clerkdashboard",{});
-});
-
 
 router.get("/addinventory",(req,res)=>{
 
@@ -35,7 +31,7 @@ router.post("/addinventory", async (req,res)=>{
        const uploadedProduct = await Product.updateOne({_id:productSave._id},{
             ImagePath:req.files.img.name,
         });
-        res.redirect("/clerk/dashboard");
+        res.redirect("/dashboard");
     } catch (err) {
         console.log(err);
         res.render("addanitem",{});
