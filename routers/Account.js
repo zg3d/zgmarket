@@ -49,6 +49,7 @@ router.post("/login", async (req, res) => {
         // result == true
         if (match) {
             console.log("success")
+            
             req.session.userInfo = user;
             res.redirect("/");
         }
@@ -162,8 +163,8 @@ router.post("/sign-up", async (req, res) => {
         });
 
         const user = new User({
-            FirstName: newUser.firstName.toLowerCase(),
-            LastName: newUser.lastName.toLowerCase(),
+            FirstName: newUser.firstName.toLowerCase().charAt(0).toUpperCase() + newUser.firstName.toLowerCase().slice(1),
+            LastName: newUser.lastName.toLowerCase().charAt(0).toUpperCase() + newUser.lastName.toLowerCase().slice(1),
             Email: newUser.email.toLowerCase(),
             Password: hashed
 
