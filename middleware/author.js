@@ -2,7 +2,7 @@ const dashBoardLoader = (req,res)=>{
 
     if(req.session.userInfo.IsClerk)
     {
-        res.render("clerkdashBoard");
+        res.render("clerkdashboard");
     }
     
     else
