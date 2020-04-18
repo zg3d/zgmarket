@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx tailwindcss build public/css/tailwind.css -o  public/css/style.css && node server",
+    "start": "node server",
+    "loadcss": "npx tailwindcss build public/css/tailwind.css -o  public/css/style.css && node server",
     "preinstall": "npx npm-force-resolutions"
   },
   "author": "",
@@ -12,6 +13,7 @@
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
     "@sendgrid/mail": "^7.0.1",
+    "aws-sdk": "^2.658.0",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",

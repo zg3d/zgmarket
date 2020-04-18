@@ -94,6 +94,5 @@ const connect = async () => {
 };
 connect();
 
-
 //Makes the app listen to port 3000
 app.listen(PORT, () => console.log(`Server Connected`));

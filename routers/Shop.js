@@ -4,18 +4,16 @@ const Product = require("../models/Product");
 const path = require('path');
 router.get("/", async (req, res) => {
     try {
-        let allItems = [];
-        await Product.find({}, (err, docs) => {
+        const allItems = [];
+     await Product.find({}, (err, docs) => {
             docs.forEach(item => {
                 allItems.push(item);
             })
         });
-        let all = {};
-        all.items = allItems;
-
-
+        
+ 
         res.render("shop", {
-            allItem: all.items
+            allItems
         });
 
     } catch (err) {
