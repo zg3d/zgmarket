@@ -10,7 +10,7 @@ const admin = require("../middleware/author");
 
 
 
-router.get("/add-to-cart/:id", async (req, res) => {
+router.get("/add-to-cart/:id", isLoggedIn, async (req, res) => {
     let itemID = req.params.id;
     let cart = new Cart(req.session.cart ? req.session.cart : {});
     try{
