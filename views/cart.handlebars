@@ -1,0 +1,53 @@
+{{#if products}}
+<div class="flex  bg-grey-lightest  flex-column p-5">
+    <form method="POST" action="/sendCartEmail" class="flex-column ">
+        <h2 class="text-center">Shopping Cart</h2>
+        
+            <ul class="flex flex-col pl-0 mb-0 border rounded border-grey-light">
+                {{#each products}}
+                <li
+                    class="relative block py-3 px-6 -mb-px border border-r-0 border-l-0 border-grey-light no-underline flex">
+                    <img class="img-rounded" src="{{this.items.ImagePath}}" alt="Desired Product"
+                        style="width:80px;height:100px">
+                    <div class="flex-grow-1 p-2">
+                        <span
+                            class="inline-block p-1 text-center font-semibold text-sm align-baseline leading-none rounded">
+                           Qty: {{this.qty}} </span>
+                        <strong>{{this.items.Title}}</strong>
+                    </div>
+                    <p class="align-self-center p-2 label label-success">${{this.Price}}</p>
+                    <div class="align-self-center">
+                       
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+      
+        <div class="flex  justify-content-end mr-5">
+            <strong>Total: ${{totalCost}}</strong>
+        </div>
+        <hr>
+        <div class="flex  justify-content-end mr-5 pb-3">
+            <input type="submit"
+                class="inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-green-lightest bg-green hover:bg-green-light float-right"
+                role="button" value="Checkout">
+        </div>
+        <input type="text" name="totalCost" id="totalCost" style="width:1px;height:1px;" value={{totalCost}}>
+    </form>
+</div>
+{{else}}
+<div class="pt-5 pb-5">
+    <div class="flex flex bg-grey-lightest justify-content-center p-5">
+        <div class="w-1/60 flex flex-column text-center w-1/2">
+            <strong>No Items In Cart</strong>
+            <hr>
+            <strong>Total: $0.00</strong>
+        </div>
+    </div>
+    <div class="flex flex bg-grey-lightest justify-content-center p-5">
+        <a href="/dashboard"
+            class="mr-3 inline-block align-middle text-center select-none border font-normal whitespace-no-wrap py-2 px-4 rounded text-base leading-normal no-underline text-green-lightest bg-green hover:bg-green-light float-right"
+            role="button" value="">Go Shopping!</a>
+    </div>
+</div>
+{{/if}}

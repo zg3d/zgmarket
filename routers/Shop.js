@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router();
 const Product = require("../models/Product");
+const isLoggedIn = require("../middleware/auth");
+const admin = require("../middleware/author");
 const path = require('path');
 router.get("/", async (req, res) => {
     try {
@@ -9,9 +11,10 @@ router.get("/", async (req, res) => {
             docs.forEach(item => {
                 allItems.push(item);
             })
-
+            console.log(req.session.userInfo.IsClerk);
             res.render("shop", {
-                allItems
+                allItems,
+                admin:!req.session.userInfo.IsClerk,
             });
         });
         
@@ -30,14 +33,18 @@ router.get("/:id", async (req, res) => {
 
              
                 res.render("itemdesc", {
-                   item
+                   item,
+            
                 });
            
     }
     catch (err) {
         console.log(err);
     }
-})
+});
+
+
+
 
 
 module.exports = router;

@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 //import your router objects
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
 const accountRoutes = require("./routers/Account");
@@ -25,6 +26,14 @@ app.use(express.static("public"));
 //Handlebars middlware
 app.engine("handlebars", exphbs({
     handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: {
+        select: function(selected, options) {
+            return options.fn(this).replace(
+                new RegExp(' value=\"' + selected + '\"'),
+                '$& selected="selected"');
+        },
+        
+    }
 }));
 app.set("view engine", "handlebars");
 
@@ -53,18 +62,22 @@ app.use(fileUpload({
 app.use(session({
     secret: `${process.env.SECRET_KEY}`,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection}),
+    cookie: {maxAge: 4320 * 60000}
 }))
 
 app.use((req, res, next) => {
 
 
      res.locals.user = req.session.userInfo;
+     res.locals.session = req.session;
 
      next();
 })
 
 //MAPs EXPRESS TO ALL OUR  ROUTER OBJECTS
+
 
 
 app.use("/",userRoutes);
