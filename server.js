@@ -86,6 +86,9 @@ app.use("/account", accountRoutes);
 app.use("/clerk",employeeRoutes);
 app.use("/shop",productsRoutes);
 
+
+
+
 app.get("/", async (req, res) => {
     try{
     const Bestseller = await Product.find({Bestseller:true});
@@ -101,6 +104,25 @@ catch(err){
 
 
 });
+
+app.use(function(req, res, next){
+    res.status(404);
+  
+    // respond with html page
+    if (req.accepts('html')) {
+      res.render('error', { url: req.url });
+      return;
+    }
+  
+    // respond with json
+    if (req.accepts('json')) {
+      res.send({ error: 'Not found' });
+      return;
+    }
+  
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+  });
 
 const PORT = process.env.PORT || 8080;
 

@@ -125,7 +125,7 @@ router.post("/update/:id", (req, res) => {
     .catch(err => console.log(` ${err}`)) 
 });
 
-router.get("/:id", async (req, res) => {
+router.get("edititem/:id", async (req, res) => {
     try {
 
         const item = await Product.findById(req.params.id)
