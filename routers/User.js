@@ -24,7 +24,7 @@ router.get("/add-to-cart/:id", async (req, res) => {
         cart.add(product, product.id);
         req.session.cart = cart;
         console.log(req.session.cart.items);
-        res.redirect("/dashboard");
+        res.redirect("/shop");
     });
 }
 catch(err){
@@ -36,6 +36,23 @@ catch(err){
 
 router.get("/dashboard", isLoggedIn, admin);
 
+
+router.get("/add/:id", (req, res)=>{
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.increaseByOne(productId);
+    req.session.cart = cart;
+    res.redirect("/checkout")
+});
+
+
+router.get("/sub/:id", (req, res)=>{
+    const productId = req.params.id;
+    const cart = new Cart(req.session.cart ? req.session.cart : {});
+    cart.reduceByOne(productId);
+    req.session.cart = cart;
+    res.redirect("/checkout")
+});
 
 router.get("/checkout", isLoggedIn, (req, res) => {
     if (!req.session.cart) {
@@ -56,22 +73,22 @@ router.get("/checkout", isLoggedIn, (req, res) => {
 
 router.post("/SendCartEmail", isLoggedIn, async (req, res) => {
     const buyCart = new Cart(req.session.cart);
-    let totalCost = req.body.totalCost;
+    let totalCost = buyCart.totalPrice;
     const arrOfItems = buyCart.generateArray();
     let items = "";
     for (let i = 0; i < buyCart.totalQty; i++) {
-        items += `${i + 1}: ${arrOfItems[i].item.Title}`
+        items += `<div>${i + 1}: ${arrOfItems[i].item.Title}</div>`
     }
-    // const sgMail = require('@sendgrid/mail');
-    // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    // msg = {
-    //     to: `${req.session.userInfo.Email}`,
-    //     from: 'noreply@zgmarket.com',
-    //     subject: 'Receipt From ZGMarket',
-    //     text: `Hello ${req.session.userInfo.FirstName}`,
-    //     html: `<strong>Thank you for your Purchase of: ${items}<br>Your Purchase Amount Was: ${totalCost}.</strong>`,
-    // };
-    // await sgMail.send(msg)
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    msg = {
+        to: `${req.session.userInfo.Email}`,
+        from: 'noreply@zgmarket.com',
+        subject: 'Receipt From ZGMarket',
+        text: `Hello ${req.session.userInfo.FirstName}`,
+        html: `<div>Thank you for your Purchase of: ${items}</div> <p>Your Purchase Amount Was: ${totalCost}.</p>`,
+    };
+    await sgMail.send(msg)
     req.session.destroy();
     res.locals.session.destroy();
     res.redirect("/dashboard");

@@ -49,7 +49,7 @@ router.get("/:category", async (req, res) => {
 
 
 });
-router.get("/:id", async (req, res) => {
+router.get("/:category/:id", async (req, res) => {
     try {
         const item = await Product.findById(req.params.id)
 
