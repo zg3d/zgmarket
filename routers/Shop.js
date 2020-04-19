@@ -9,12 +9,14 @@ router.get("/", async (req, res) => {
             docs.forEach(item => {
                 allItems.push(item);
             })
+
+            res.render("shop", {
+                allItems
+            });
         });
         
  
-        res.render("shop", {
-            allItems
-        });
+       
 
     } catch (err) {
         console.log(err);
