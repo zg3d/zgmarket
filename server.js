@@ -45,7 +45,10 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use(fileUpload());
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+}));
 
 app.use(session({
     secret: `${process.env.SECRET_KEY}`,

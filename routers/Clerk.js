@@ -1,8 +1,11 @@
 const express = require('express');
-const path = require('path');
+
 const Product = require("../models/Product");
 const router = express.Router();
-
+const AWS = require('aws-sdk');
+ const fs = require('fs');
+ const path = require('path');
+       
 
 router.use(express.static("public"));
 
@@ -28,10 +31,8 @@ router.post("/addinventory", async (req, res) => {
         let productSave = await product.save();
         req.files.img.name = `p${productSave._id}${path.parse(req.files.img.name).ext}`
 
-
-        const AWS = require('aws-sdk');
-        const fs = require('fs');
-        const path = require('path');
+        console.log(req.files.img.tempFilePath);
+        
 
         //configuring the AWS environment
         AWS.config.update({
@@ -39,14 +40,14 @@ router.post("/addinventory", async (req, res) => {
             secretAccessKey: process.env.AWSSecretKey
         });
 
-        var s3 = new AWS.S3();
+        let s3 = new AWS.S3();
         
 
         //configuring parameters
-        var params = {
+        let params = {
             Bucket: 'zgmarket',
-            Body: fs.createReadStream(req.files.img),
-            Key: path.basename(req.files.img)
+            Body: fs.createReadStream(req.files.img.tempFilePath),
+            Key: path.basename(req.files.img.tempFilePath)
         };
 
         s3.upload(params, async (err, data)=> {
