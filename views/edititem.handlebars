@@ -1,10 +1,9 @@
-
 <section class="bg-white py-8 justify-center flex-row content-center items-center">
 
 
     <h3 class="font-semibold text-center  text-purple-900 mb-2 text-xl leading-tight sm:leading-normal">Edit a Product
     </h3>
-    <form class="w-full p-4 " action="/clerk/addinventory" method="POST" enctype="multipart/form-data">
+    <form class="w-full p-4 " action="/clerk/update/{{item._id}}" method="POST" enctype="multipart/form-data">
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
@@ -14,8 +13,21 @@
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                     id="name" name="name" value="{{item.Title}}" type="text" placeholder="Name of Product">
 
+                <fieldset class="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+                    <legend > bestseller     </legend>
+                    <div>
+                        <input type="radio" id="no" name="bestseller" value="false" checked>
+                        <label for="no">No</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="yes" name="bestseller" value="true">
+                        <label for="yes">Yes</label>
+                    </div>
+                   
+                </fieldset>
+
             </div>
-         
+
         </div>
         <div class="flex flex-wrap -mx-3 mb-6">
             <div class="w-full px-3">
@@ -24,7 +36,8 @@
                 </label>
                 <textarea
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    id="desc" name="desc" maxlength="250"  placeholder="******************">{{item.Description}} </textarea>
+                    id="desc" name="desc" maxlength="250"
+                    placeholder="******************">{{item.Description}} </textarea>
 
             </div>
         </div>
@@ -44,7 +57,7 @@
                 <div class="relative">
                     <select
                         class="block appearance-none w-full bg-gray-200 border border-purple-900 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="category"  name="category">
+                        id="category" name="category">
                         {{#select item.Category}}
                         <option>Hats</option>
                         <option>Tops</option>
@@ -66,23 +79,22 @@
                 <input
                     class="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-900 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="price" name="price" step=".01" value={{item.Price}} type="number" placeholder="12.99">
-            </div> 
-        </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="desc">
-
-                    </label>
-                    <input
-                        class="appearance-none block w-full bg-purple-900 text-white border  hover:bg-purple-700 border-purple-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="desc" type="submit"  />
-
-                </div>
             </div>
-        
-        
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+            <div class="w-full px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="desc">
+
+                </label>
+                <input
+                    class="appearance-none block w-full bg-purple-900 text-white border  hover:bg-purple-700 border-purple-900 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="desc" type="submit" />
+
+            </div>
+        </div>
+
+
     </form>
 
 
 </section>
-

@@ -101,7 +101,29 @@ router.post("/addinventory", async (req, res) => {
 });
 
 
-
+router.post("/update/:id", (req, res) => {
+    const item = {
+        Title: req.body.name,
+        Description: req.body.desc,
+        Price: req.body.price, 
+        Bestseller:  req.body.bestseller,
+        Quantity: req.body.qty,
+        Category: req.body.category,
+        DateLastModified:Date.now(),
+    }
+    console.log(item.Bestseller)
+    if(item.Bestseller == "true"){
+        item.Bestseller = true;
+    } 
+    else{
+        item.Bestseller =false;
+    }
+    Product.updateOne({_id:req.params.id}, item)
+    .then(() =>{
+        res.redirect("/clerk/shop");
+    })
+    .catch(err => console.log(` ${err}`)) 
+});
 
 router.get("/:id", async (req, res) => {
     try {

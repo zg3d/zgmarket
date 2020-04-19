@@ -4,6 +4,7 @@ const Handlebars = require('handlebars')
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
+const Product = require("./models/Product");
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -85,11 +86,18 @@ app.use("/account", accountRoutes);
 app.use("/clerk",employeeRoutes);
 app.use("/shop",productsRoutes);
 
-app.get("/", (req, res) => {
-
+app.get("/", async (req, res) => {
+    try{
+    const Bestseller = await Product.find({Bestseller:true});
     res.render("home", {
-        title: 'Home Page'
+        title: 'Home Page',
+        Bestseller
+        
     });
+}
+catch(err){
+    console.log(err);
+}
 
 
 });

@@ -48,25 +48,11 @@
 
     <h3 class="font-semibold  text-purple-900 mb-2 m-4 pr-4 text-xl leading-tight sm:leading-normal">BestSeller</h3>
     <div class="overflow-x-scroll border-2 border-purple-900  overflow-y-auto m-2  flex">
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-      <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
-          src="https://images.unsplash.com/photo-1573748240263-a4e9c57a7fcd"></div>
-
+      {{#each Bestseller}}
+     <a href="/shop/{{this._id}}"> <div class=" flex-shrink-0 slide  m-2"><img class=" flex-shrink-0 h-200 w-64"
+          src="{{this.ImagePath}}"></div></a>
+     
+  {{/each}}
     </div>
 
   </section> 
